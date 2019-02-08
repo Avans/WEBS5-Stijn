@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/mongoose2");
 
 var broodje = new mongoose.Schema({
-    naam: { type: String,  maxlength: 2},
+    naam: { type: String, required: true},
     lengte: { type: Number, required: true},
     beleg: [ { type: String }]
 });
