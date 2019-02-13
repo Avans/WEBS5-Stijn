@@ -1,15 +1,15 @@
 var express = require('express');
-var hbs = require('express-hbs');
+//var hbs = require('express-hbs');
 
 var app = express();
 
 
-app.engine('hbs', hbs.express4({
-  partialsDir: __dirname + '/views/partials'
-}));
+// app.engine('hbs', hbs.express4({
+//   partialsDir: __dirname + '/views/partials'
+// }));
 
-app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
+// app.set('view engine', 'hbs');
+// app.set('views', __dirname + '/views');
 
 app.use(function(req, res, next){
     console.log("Getting a request on:" + req.url);
