@@ -5,12 +5,36 @@ var Sportclub = mongoose.model('Sportclub');
 
 var router = express.Router();
 
-//get
+/**
+ * @swagger
+ *
+ * /sportclub:
+ *   get:
+ *     description: Get all the sportclubjes
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: login
+ */
 router.get('/', (req, res) => {
     Sportclub.find().exec((err, sportclubs) => {
         res.send(sportclubs);
     })
 })
+
+/**
+ * @swagger
+ *
+ * /sportclub:
+ *   post:
+ *     description: Add a new sportclubje
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: A new sportclub has been added
+ */
 //post
 router.post('/', (req, res) => {
     console.log('test');

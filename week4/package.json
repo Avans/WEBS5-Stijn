@@ -5,18 +5,17 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": " mocha **/**.spec"
   },
   "author": "Sijn Smulders",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "mongoose": "^5.4.12",
-    "swagger-jsdoc": "^3.2.7",
-    "swagger-ui-express": "^4.0.2"
+    "express": "^4.16.4"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^5.2.0"
   }
 }

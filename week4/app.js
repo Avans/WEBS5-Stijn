@@ -16,13 +16,6 @@ var app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-//swagger
-const swaggerUi = require('swagger-ui-express');
-const swaggerJSDoc = require('swagger-jsdoc');
-const swaggerOptions = require('./config/swagger');
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 //routes
 var sportclubRoutes = require('./routes/sportclub');
 
