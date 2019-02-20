@@ -5,13 +5,14 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": " mocha **/**.spec"
+    "test": " mocha components/**/*.spec.js -w"
   },
   "author": "Sijn Smulders",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mongoose": "^5.4.14"
   },
   "devDependencies": {
     "chai": "^4.2.0",

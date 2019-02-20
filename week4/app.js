@@ -1,28 +1,20 @@
-//app
-
-//[ ][ ][ ][ ]
-
-//input req
-//output res
-//next
-//[ ]
 require('./config/database');
-require('./model/sportclub');
 
 var express = require('express');
 var app = express();
 
-//body-parser
+//pipeline
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-//routes
-var sportclubRoutes = require('./routes/sportclub');
+//modules
+var competition = require('./components/competition/competition.module');
 
-app.use('/sportclub', sportclubRoutes);
+//routes
+app.use('/' + competition.url, competition.routes); 
 
 app.use((req, res, next) => {
-    res.send('hello world');
+    res.send(404);
 }); 
 
 app.listen(8000);

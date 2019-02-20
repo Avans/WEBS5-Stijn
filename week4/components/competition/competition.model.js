@@ -12,5 +12,8 @@ var competitionSchema = mongoose.Schema({
     ]
 }) 
 
-mongoose.model('Competition', competitionSchema);
+if(!mongoose.model('Competition'))
+    mongoose.model('Competition', competitionSchema);
+
+module.exports = mongoose.model('Competition');
 
