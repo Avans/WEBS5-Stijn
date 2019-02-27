@@ -3,13 +3,15 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Hello World',
+            title: 'Hotel de Botel',
             version: '1.0.0',
         },
     },
     // Path to the API docs
-    apis: ['./routes/*'],
+    apis: ['./routes/kamer-routes.ts'],
 };
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
-module.exports = swaggerDocument = swaggerJSDoc(options);
+var swaggerDoc = swaggerJSDoc(options);
+console.log(swaggerDoc);
+module.exports = swaggerDoc;
 //# sourceMappingURL=swagger.js.map
