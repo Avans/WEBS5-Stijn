@@ -14,8 +14,8 @@ export interface Kamer extends mongoose.Document {
 // define the schema for our user model
 var kamerSchema = new Schema({
 
-    name: { Type: String},
-    price: { Type: Number}
+    name: { type: String, required: true},
+    price: { type: Number, required: true}
 
 });
 

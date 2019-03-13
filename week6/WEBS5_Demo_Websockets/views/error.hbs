@@ -1,0 +1,45 @@
+<h1>{{message}}</h1>
+<h2>{{error.status}}</h2>
+<pre>{{error.stack}}</pre>
+
+
+<script src="Scripts/jquery-ui-1.10.3.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.0.0.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        $(function () {
+            $.connection.moveShapeHub.logging = true;
+
+            var moveShapeHub = $.connection.moveShapeHub;
+            var $shape = $("#shape");
+            var messageFrequency = 10;
+            var updateRate = 1000 / messageFrequency;
+            var shapeModel = {
+                left: 0,
+                top: 0
+            };
+            var moved = false;
+
+            moveShapeHub.client.updateShape = function (model) {
+                shapeModel = model;
+                $shape.animate(shapeModel, { duration: updateRate, queue: false });
+            };
+
+            $.connection.hub.start().done(function () {
+                $shape.draggable({
+                    drag: function () {
+                        shapeModel = $shape.offset();
+                        moved = true;
+                    }
+                });
+                setInterval(updateServerModel, updateRate);
+            });
+
+            function updateServerModel() {
+                if (moved) {
+                    moveShapeHub.server.updateModel(shapeModel);
+                    moved = false;
+                }
+            }
+        });
+    </script>

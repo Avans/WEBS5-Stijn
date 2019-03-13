@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // app/routes.js
 module.exports = function (app, passport) {
     app.get('/profile', isLoggedIn, function (req, res) {
@@ -7,17 +5,15 @@ module.exports = function (app, passport) {
         res.json(req.user);
     });
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true // allow flash messages
-    }));
-    // process the signup form
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true // allow flash messages
-    }));
+    app.post('/signup', passport.authenticate('local-signup'), (req, res, next) => {
+        res.send(200);
+    });
+    // // process the signup form
+    // app.post('/login', passport.authenticate('local-login', {
+    //     successRedirect : '/profile', // redirect to the secure profile section
+    //     failureRedirect : '/signup', // redirect back to the signup page if there is an error
+    //     failureFlash : true // allow flash messages
+    // }));
     app.get('/logout', function (req, res) {
         req.logout();
         res.end();

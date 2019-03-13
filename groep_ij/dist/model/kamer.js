@@ -7,8 +7,8 @@ exports.Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
 // define the schema for our user model
 var kamerSchema = new exports.Schema({
-    name: { Type: String },
-    price: { Type: Number }
+    name: { type: String, required: true },
+    price: { type: Number, required: true }
 });
 exports.KamerModel = mongoose.model('Kamer', kamerSchema);
 //# sourceMappingURL=kamer.js.map

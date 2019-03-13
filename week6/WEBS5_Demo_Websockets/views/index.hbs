@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR MoveShape Demo</title>
+    <style>
+        #shape {
+            width: 100px;
+            height: 100px;
+            background-color: {{ color }};
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <script>
+        $(() => {
+            var $shape = $("#shape");
+            $shape.draggable({
+                drag: function () {
+                    topLeftCoordinates = $shape.offset();
+                    moved = true;
+                }
+            });
+            setInterval(sendCoordinatesToServer, updateRate);
+
+            var messageFrequency = 10;
+            var updateRate = 1000 / messageFrequency;
+            var topLeftCoordinates = { left: 0, top: 0 };
+            var moved = false;
+
+            var socket = io.connect('', { query: 'color={{color}}' });
+
+            socket.on('shapeMoved', (newCoordinates) => {
+                console.log(newCoordinates);
+                $shape.animate(newCoordinates, { duration: updateRate, queue: false });
+                topLeftCoordinates = newCoordinates;
+            });
+
+            function sendCoordinatesToServer() {
+                if (moved) {
+                    socket.emit('draggingShape', topLeftCoordinates);
+                    moved = false;
+                }
+            }
+        });
+    </script>
+    
+    <div id="shape" />
+</body>
+</html>

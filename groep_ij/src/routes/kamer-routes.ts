@@ -49,7 +49,39 @@ router.route('/kamer')
      *         description: kamers
      */
     .post(function (req, res) {
-        res.send('Kamer toevoegen!');
+       var kamer = new KamerModel(req.body);
+       kamer.save((err, kamer) => {
+           if(err) res.send(err); 
+           res.json(kamer);
+       })
     });
+
+
+    router.route('/kamer/:id')
+
+    /**
+     * @swagger
+     *
+     * /kamer:
+     *   get:
+     *     description: Get all kamers
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - in: query
+     *         name: q
+     *         schema:
+     *           type: String
+     *         description: A query to filter the collection
+     *     responses:
+     *       200:
+     *         description: kamers
+     */
+    .get((req, res) => {
+        KamerModel.find().exec((err, kamers) => {
+            res.json(kamers)
+        });
+    })
+
 
 module.exports = router;
