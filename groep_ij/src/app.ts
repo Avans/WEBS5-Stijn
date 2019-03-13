@@ -6,6 +6,7 @@ var port     = process.env.PORT || 8001;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
+var path = require('path');
 
 var morgan       = require('morgan'); 
 var cookieParser = require('cookie-parser');
@@ -18,6 +19,7 @@ var db = require('./config/database');
 
 //init app
 var app = express();
+var server = require('http').createServer(app);
 
 //models
 require('./model/user');
@@ -25,11 +27,11 @@ require('./model/kamer');
 
 
 //express pipeline
+app.use(express.static(path.join(__dirname, 'public'))); 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
-app.use(express.static('public'))
 
 
 // required for passport
@@ -40,6 +42,9 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+//sockets
+require('./config/socket')(server);
+
 
 //thema = hotel tamagotchi
 require('./routes/auth-routes')(app, passport);
@@ -49,7 +54,8 @@ app.use(function(req, res, next){
     res.send(404);
 })
 
-app.listen(port);
+
+server.listen(port);
 console.log('Listening on port: ' + port);
 
 //bron: https://developer.okta.com/blog/2018/11/15/node-express-typescript

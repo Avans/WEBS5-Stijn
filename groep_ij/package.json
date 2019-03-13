@@ -4,11 +4,11 @@
   "description": "A demo app with express + typescript",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js & copy",
+    "start": "concurrently \"nodemon\"  \"npm run copy\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "copy": "cpx \"src/public/**/*.html\" dist" 
+    "copy": "cpx \"src/public/**/*.html\" \"dist/public\" --watch" 
   },
   "author": "",
   "license": "ISC",
