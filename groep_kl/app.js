@@ -29,6 +29,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 var userRoutes = require('./routes/user-routes');
 var dinoRoutes = require('./routes/dino-routes');
 
+
 app.use((req, res, next) => {
     console.log('Incoming');
     next();
@@ -36,6 +37,28 @@ app.use((req, res, next) => {
 
 app.use(userRoutes);
 app.use(dinoRoutes);
+
+app.use(function(req, res, next){
+
+  console.log('Test');
+
+  if(req.myData)
+  { 
+    if(req.headers['content-type'] == "application/json")
+    {
+        res.json(req.myData);
+    }
+    else
+    {
+        res.render(req.template, req.myData);
+    }
+  }
+  else{
+    next();
+  }
+  
+})
+
 
 
 app.get('/', function(req, res, next){

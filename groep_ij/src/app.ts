@@ -4,7 +4,7 @@ var express = require('express');
 var swaggerUi = require('swagger-ui-express');
 var port     = process.env.PORT || 8001;
 var mongoose = require('mongoose');
-var passport = require('passport');
+//var passport = require('passport');
 var flash    = require('connect-flash');
 var path = require('path');
 
@@ -35,19 +35,19 @@ app.use(bodyParser()); // get information from html forms
 
 
 // required for passport
-require('./config/passport')(passport); 
+//require('./config/passport')(passport); 
 
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+//app.use(passport.initialize());
+//app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 //sockets
-require('./config/socket')(server);
+//require('./config/socket')(server);
 
 
 //thema = hotel tamagotchi
-require('./routes/auth-routes')(app, passport);
+//require('./routes/auth-routes')(app, passport);
 app.use( require('./routes/kamer-routes'));
 
 app.use(function(req, res, next){

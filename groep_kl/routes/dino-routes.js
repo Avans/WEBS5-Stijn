@@ -19,7 +19,19 @@ dinoRouter.route('/dinos')
      *           items:
      *             $ref: '#/definitions/dino'
      */
-    .get((req, res) => res.send('Getting dinos'))
+    .get((req, res, next) => {
+
+        var dinos = [
+            { naam: "Barney", type: "T-rex", kleur: "paars/groen"},
+            { naam: "Platfoet", type: "Langnek", kleur: "Bietje bruin"},
+            { naam: "Dino", type: "Langek maar dan kleiner", kleur: "Flinstone roze"}
+        ]
+
+        req.myData = dinos;
+        req.template = "dinos";
+        next();
+
+    })
     /**
      * @swagger
      * /dinos:

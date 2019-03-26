@@ -1,18 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+    <!-- component template -->
+    <script type="text/x-template" id="grid-template">
+    <table>
+      <thead>
+        <tr>
+          <th v-for="key in columns"
+            @click="sortBy(key)"
+            :class="{ active: sortKey == key }">
+            {{ key | capitalize }}
+            <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="entry in filteredHeroes">
+          <td v-for="key in columns">
+            {{entry[key]}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </script>
+
 </head>
+
 <body>
     <h2>Hotel de Botel</h2>
     <p>Hello world</p>
+
+    <div id="demo">
+        <table>
+            <table>
+                <thead>
+                    <tr>
+                       <td>Name</td>
+                       <td>Price</td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="entry in filteredHeroes">
+            </table>
+            <demo-grid :kamers="gridData">
+            </demo-grid>
+    </div>
+
 </body>
-</html> 
+
+</html>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io();
+    var socket = io();
+
+    Vue.component('demo-grid', {
+        template: '#grid-template',
+        props: {
+            kamers: Array,
+        }
+    })
+
+    // bootstrap the demo
+    var demo = new Vue({
+        el: '#demo',
+        data: {
+            kamers: []
+        },
+        mounted() {
+            axios.get('/kamer')
+                .then(response => (this.kamers = kamers))
+        }
+    })
 </script>

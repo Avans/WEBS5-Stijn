@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h2>Scrocket</h2>
+
+    <p>Verbinden met socket:</p>
+</body>
+</html>
+
+<script>
+ var socket = io();
+  socket.on('welcome', function (msg) {
+    console.log('Welcome ' + msg)
+  });
+
+  socket.on('score', function(result){
+      console.log("Wow, " + result.name + " scored an amazing " + result.score + " points!");
+  })
+</script>
